@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Collection, CollectionItem } from 'react-materialize'
+import "./style.css"
 
 export default function CollectionList(props) {
     const [userInfo, setUserInfo] = useState([])
@@ -29,8 +30,8 @@ export default function CollectionList(props) {
             <Collection>
                 {userInfo.length > 0 ? userInfo.map(user => (
                     <CollectionItem className="avatar">
-                        <img className="circle" src={user.pic} />
-                        <span className="title">{user.firstName} {user.lastName}</span>
+                        <img className="userImage left" src={user.pic} />
+                        <span className="title userName">{user.firstName} {user.lastName}</span>
                         <p>Email: {user.email}</p>
                         <p>Company: {user.company}</p>
                         <p>Skill: {user.skill}</p>

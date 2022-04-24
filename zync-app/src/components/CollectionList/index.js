@@ -37,7 +37,7 @@ export default function CollectionList(props) {
 
     function filterResults(userData) {
         const filteredUsers = userData.filter(user => {
-            return user.firstName.toLowerCase().includes(nameFilter.toLowerCase()) || user.lastName.toLowerCase().includes(nameFilter.toLowerCase())
+            return (user.firstName.toLowerCase().includes(nameFilter.toLowerCase()) || user.lastName.toLowerCase().includes(nameFilter.toLowerCase())) || ((user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()).includes(nameFilter.toLowerCase()))
         })
         findAverages(filteredUsers)
     }

@@ -32,3 +32,26 @@
     text-indent: 25px;
     padding-top: 10px;
 }
+
+.gradesHidden {
+    display: none
+}
+
+.gradesNotHidden {
+    display: block;
+}
+
+.grades {
+    padding-top: 20px;
+    padding-left: 180px;
+}
+
+.addRemoveButton:hover {
+    cursor: pointer;
+}
+
+.addRemoveButton {
+    font-size: 50px;
+    color: gray;
+    font-weight: 700;
+}

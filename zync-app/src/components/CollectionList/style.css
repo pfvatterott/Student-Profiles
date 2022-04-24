@@ -2,19 +2,33 @@
     border-radius: 10px !important;
     overflow-y: scroll !important;
     max-height: 80vh;
+    background-color: white;
 }
 
 .userImage {
-    height: 100px;
-    width: 100px;
+    height: 125px;
+    width: 125px;
     border-radius: 50%;
     outline-style: solid;
     outline-width: 1px;
     outline-color: gray;
+    margin-right: 30px !important;
 }
 
 .userName {
     font-size: xx-large !important;
-    font-weight: 500;
+    color: black;    
+    text-shadow: 1px 0 black;
+    letter-spacing:1px;
+    font-weight:bold;
     text-transform: uppercase;
+}
+
+.collection-item {
+    padding-left: 5% !important;
+}
+
+.indent {
+    text-indent: 25px;
+    padding-top: 10px;
 }

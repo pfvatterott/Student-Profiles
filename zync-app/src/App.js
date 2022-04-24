@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CollectionList from "./components/CollectionList";
+import FilterInput from "./components/FilterInput";
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <div className="App container">
+      {/* <FilterInput /> */}
       <CollectionList userData={userData}></CollectionList>
     </div>
   );

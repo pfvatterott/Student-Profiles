@@ -123,6 +123,7 @@ export default function CollectionList(props) {
                                 <Button
                                     disabled
                                     id="tagButton"
+                                    key={tag + user.id + Math.random()}
                                 >
                                 {tag}
                                 </Button>

@@ -12,12 +12,16 @@ export default function CollectionList(props) {
     const [forceUpdate, setForceUpdate] = useState(0)
 
     useEffect(() => {
+
+        // add hide grades property to userData array. This is then adjusted when expanding/collapsing grades
         let tempUserArray = props.userData
         tempUserArray.forEach(user => {
             if (user.areGradesHidden === null || !user.areGradesHidden) {
                 user.areGradesHidden = true
             }
         });
+
+        // if no filters applied, skip filterResults function
         if(nameFilter === '' && tagFilter === '') {
             findAverages(tempUserArray)
         }
@@ -26,6 +30,7 @@ export default function CollectionList(props) {
         }
     }, [props.userData, nameFilter, tagFilter])
 
+    // adds average grade property to userData array
     function findAverages(userData) {
         let tempUser = []
         for (let i = 0; i < userData.length; i++) {
@@ -40,14 +45,14 @@ export default function CollectionList(props) {
         setUserInfo(tempUser)
     }
 
-    function handleSetNameFilter(x) {
-        setNameFilter(x)
-    }
-
     function filterResults(userData) {
+
+        // filtering based on name. Includes first, last, and combination of the two
         const filteredUsers = userData.filter(user => {
             return (user.firstName.toLowerCase().includes(nameFilter.toLowerCase()) || user.lastName.toLowerCase().includes(nameFilter.toLowerCase())) || ((user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()).includes(nameFilter.toLowerCase()))
         })
+    
+        // once filtered by name (even if no name filter present), filter by tag
         const filteredUsersWithTags = filteredUsers.filter(user => {
             if (user.tags && tagFilter !== '') {
                return user.tags.some(tag => tag.includes(tagFilter.toLowerCase()))
@@ -62,6 +67,7 @@ export default function CollectionList(props) {
         findAverages(filteredUsersWithTags)
     }
 
+    // adjust areGradesHidden property to show or hide grades
     function handleShowGrades(id) {
         let tempUserInfo = userInfo
         for (let i = 0; i < tempUserInfo.length; i++) {
@@ -76,6 +82,7 @@ export default function CollectionList(props) {
         setForceUpdate(forceUpdate + 1)
     }
 
+    // add new tag to user object
     function handleNewTag(tag, id) {
         let newTagValue = tag.toLowerCase()
         let userData = userInfo
@@ -91,6 +98,10 @@ export default function CollectionList(props) {
         setForceUpdate(forceUpdate + 1)
     }
 
+    function handleSetNameFilter(x) {
+        setNameFilter(x)
+    }
+
     function handleSetTagFilter(x) {
         setTagFilter(x)
     }
@@ -103,7 +114,7 @@ export default function CollectionList(props) {
                 {userInfo.length > 0 ? userInfo.map(user => (
                     <CollectionItem className="avatar" key={user.id}>
                         <Icon className="right addRemoveButton" onClick={(x) => handleShowGrades(user.id)}>{user.areGradesHidden ? "add" : "remove"}</Icon>
-                        <img className="userImage left" src={user.pic} />
+                        <img className="userImage left" src={user.pic} alt='student profile'/>
                         <span className="title userName">{user.firstName} {user.lastName}</span>
                         <div className="indent">
                             <p>Email: {user.email}</p>

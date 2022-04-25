@@ -55,3 +55,14 @@
     color: gray;
     font-weight: 700;
 }
+
+.tags {
+    margin-left: 180px;
+}
+
+#tagButton {
+    margin-top: 10px;
+    margin-right: 5px;
+    color: black !important;
+    text-transform: lowercase;
+}

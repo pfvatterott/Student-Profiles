@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Collection, CollectionItem, Icon } from 'react-materialize'
+import { Collection, CollectionItem, Icon, Button } from 'react-materialize'
 import FilterInput from "../FilterInput";
+import TagInput from "../TagInput";
 import "./style.css"
 
 export default function CollectionList(props) {
@@ -12,7 +13,7 @@ export default function CollectionList(props) {
         console.log(props.userData)
         let tempUserArray = props.userData
         tempUserArray.forEach(user => {
-            if (user.areGradesHidden === null) {
+            if (user.areGradesHidden === null || !user.areGradesHidden) {
                 user.areGradesHidden = true
             }
         });
@@ -64,6 +65,21 @@ export default function CollectionList(props) {
         setForceUpdate(forceUpdate + 1)
     }
 
+    function handleNewTag(tag, id) {
+        let newTagValue = tag.toLowerCase()
+        let userData = userInfo
+        for (let i = 0; i < userData.length; i++) {
+            if (userData[i].id === id && userData[i].tags) {
+                userData[i].tags.push(newTagValue)
+            }
+            else if (userData[i].id === id && !userData[i].tags) {
+                userData[i].tags = [newTagValue]
+            }
+        }
+        setUserInfo(userData)
+        setForceUpdate(forceUpdate + 1)
+    }
+
     return (
         <div>
             <Collection>
@@ -84,6 +100,17 @@ export default function CollectionList(props) {
                                 <p>Test 1: {grade}%</p>
                             ))}
                         </div>
+                        <div className="tags">
+                            {user.tags ? user.tags.map(tag => (
+                                <Button
+                                    disabled
+                                    id="tagButton"
+                                >
+                                {tag}
+                                </Button>
+                            )):null}
+                        </div>
+                        <TagInput id={user.id} handleNewTag={(x, y) => handleNewTag(x, y)}/>
                     </CollectionItem>
                 )): null}
                 

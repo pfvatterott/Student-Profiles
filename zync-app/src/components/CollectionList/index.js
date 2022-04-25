@@ -12,7 +12,6 @@ export default function CollectionList(props) {
     const [forceUpdate, setForceUpdate] = useState(0)
 
     useEffect(() => {
-        console.log(props.userData)
         let tempUserArray = props.userData
         tempUserArray.forEach(user => {
             if (user.areGradesHidden === null || !user.areGradesHidden) {
@@ -73,7 +72,6 @@ export default function CollectionList(props) {
                 tempUserInfo[i].areGradesHidden = true
             }
         }
-        console.log(tempUserInfo)
         setUserInfo(tempUserInfo)
         setForceUpdate(forceUpdate + 1)
     }
@@ -116,7 +114,7 @@ export default function CollectionList(props) {
                         <div className={(user.areGradesHidden ? "gradesHidden grades" : "gradesNotHidden grades")} id={user.id}>
                             <ol className="gradeList">
                             {user.grades.map(grade => (
-                                <div><p className="left">Test</p><li className="gradeListItem">:&nbsp;&nbsp;&nbsp;{grade}%</li></div>
+                                <div key={user.id + " " + Math.random()}><p className="left">Test</p><li className="gradeListItem">:&nbsp;&nbsp;&nbsp;{grade}%</li></div>
                             ))}
                             </ol>
                         </div>

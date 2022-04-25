@@ -96,9 +96,11 @@ export default function CollectionList(props) {
                             <p>Average: {user.average}%</p>
                         </div>
                         <div className={(user.areGradesHidden ? "gradesHidden grades" : "gradesNotHidden grades")} id={user.id}>
+                            <ol className="gradeList">
                             {user.grades.map(grade => (
-                                <p>Test 1: {grade}%</p>
+                                <div><p className="left">Test</p><li className="gradeListItem">:&nbsp;&nbsp;&nbsp;{grade}%</li></div>
                             ))}
+                            </ol>
                         </div>
                         <div className="tags">
                             {user.tags ? user.tags.map(tag => (

@@ -43,7 +43,7 @@
 
 .grades {
     padding-top: 20px;
-    padding-left: 180px;
+    padding-left: 140px;
 }
 
 .addRemoveButton:hover {
@@ -65,4 +65,19 @@
     margin-right: 5px;
     color: black !important;
     text-transform: lowercase;
+    font-family: 'Raleway', sans-serif;
+}
+
+.gradeListItem {
+    margin-left: 33px;
+}
+
+.gradeListItem:before { 
+    content: counter(item) "  "; 
+    counter-increment: item 
+}
+
+.gradeList { 
+    counter-reset: item;
+    list-style-type: none;
 }

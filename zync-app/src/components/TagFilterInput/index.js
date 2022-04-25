@@ -2,17 +2,17 @@ import React from "react";
 import { TextInput } from 'react-materialize'
 import "./style.css"
 
-export default function FilterInput(props) {
+export default function TagFilterInput(props) {
 
     function handleFilterChange(event) {
         const filterValue = event.target.value
-        props.setNameFilter(filterValue)
+        props.setTagFilter(filterValue)
     }
 
     return (
         <TextInput
-            id="nameFilter"
-            placeholder="Search by name"
+            id="tagFilter"
+            placeholder="Search by tag"
             onChange={handleFilterChange}
         />
     )

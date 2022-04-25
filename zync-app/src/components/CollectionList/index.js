@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Collection, CollectionItem, Icon, Button } from 'react-materialize'
 import FilterInput from "../FilterInput";
 import TagInput from "../TagInput";
+import TagFilterInput from "../TagFilterInput";
 import "./style.css"
 
 export default function CollectionList(props) {
     const [userInfo, setUserInfo] = useState([])
     const [nameFilter, setNameFilter] = useState('')
+    const [tagFilter, setTagFilter] = useState('')
     const [forceUpdate, setForceUpdate] = useState(0)
 
     useEffect(() => {
@@ -17,13 +19,13 @@ export default function CollectionList(props) {
                 user.areGradesHidden = true
             }
         });
-        if(nameFilter === '') {
+        if(nameFilter === '' && tagFilter === '') {
             findAverages(tempUserArray)
         }
         else {
             filterResults(tempUserArray)
         }
-    }, [props.userData, nameFilter])
+    }, [props.userData, nameFilter, tagFilter])
 
     function findAverages(userData) {
         let tempUser = []
@@ -47,7 +49,18 @@ export default function CollectionList(props) {
         const filteredUsers = userData.filter(user => {
             return (user.firstName.toLowerCase().includes(nameFilter.toLowerCase()) || user.lastName.toLowerCase().includes(nameFilter.toLowerCase())) || ((user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()).includes(nameFilter.toLowerCase()))
         })
-        findAverages(filteredUsers)
+        const filteredUsersWithTags = filteredUsers.filter(user => {
+            if (user.tags && tagFilter !== '') {
+               return user.tags.some(tag => tag.includes(tagFilter.toLowerCase()))
+            }
+            else if (!user.tags && tagFilter !== '') {
+                return false
+            }
+            else {
+                return filteredUsers
+            }
+        })
+        findAverages(filteredUsersWithTags)
     }
 
     function handleShowGrades(id) {
@@ -80,10 +93,15 @@ export default function CollectionList(props) {
         setForceUpdate(forceUpdate + 1)
     }
 
+    function handleSetTagFilter(x) {
+        setTagFilter(x)
+    }
+
     return (
         <div>
             <Collection>
                 <FilterInput nameFilter={nameFilter} setNameFilter={(x) => handleSetNameFilter(x)}/>
+                <TagFilterInput tagFilter={tagFilter} setTagFilter={(x) => handleSetTagFilter(x)}/>
                 {userInfo.length > 0 ? userInfo.map(user => (
                     <CollectionItem className="avatar" key={user.id}>
                         <Icon className="right addRemoveButton" onClick={(x) => handleShowGrades(user.id)}>{user.areGradesHidden ? "add" : "remove"}</Icon>
